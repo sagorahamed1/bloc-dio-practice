@@ -1,3 +1,4 @@
+import 'package:bloc_api_request/bloc/products/products_bloc.dart';
 import 'package:bloc_api_request/bloc/user/user_bloc.dart';
 import 'package:bloc_api_request/providers/user_provider.dart';
 import 'package:bloc_api_request/route/routes.dart';
@@ -11,7 +12,8 @@ void main() {
   DioHelper.init(baseUrl: "https://jsonplaceholder.typicode.com");
   runApp( MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => UserBloc(userProvider: UserProvider(dio: DioHelper.dio)))
+        BlocProvider(create: (context) => UserBloc(getProvider: GetProvider(dio: DioHelper.dio))),
+        BlocProvider(create: (context) => ProductsBloc(getProvider: GetProvider(dio: DioHelper.dio)))
       ],
       child: MyApp()));
 }

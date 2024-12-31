@@ -1,10 +1,9 @@
-import 'package:bloc_api_request/models/user_model.dart';
 import 'package:dio/dio.dart';
 
-class UserProvider {
+class GetProvider {
   final Dio dio;
 
-  UserProvider({required this.dio});
+  GetProvider({required this.dio});
 
   Future<Response> getUser(String uri) async {
     try {

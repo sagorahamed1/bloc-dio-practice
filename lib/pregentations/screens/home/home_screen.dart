@@ -12,10 +12,10 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home'),
+        title: const Text('Home'),
         actions: [
           IconButton(
-            icon: Icon(Icons.logout),
+            icon: const Icon(Icons.logout),
             onPressed: () {
               context.read<AuthBloc>().add(LogoutEvent());
               context.go('/login');
@@ -28,6 +28,14 @@ class HomeScreen extends StatelessWidget {
           ListTile(
             onTap: (){
               context.pushNamed(Routes.userScreen);
+            },
+            title: const Text("User Screen"),
+          ),
+
+
+          ListTile(
+            onTap: (){
+              context.push(Routes.productsScreen);
             },
             title: const Text("User Screen"),
           )
