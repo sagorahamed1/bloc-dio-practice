@@ -5,7 +5,7 @@ class DioHelper {
   static late Dio dio;
 
   // Initialize Dio with advanced configuration
-  static void init({required String baseUrl, int timeoutSeconds = 10}) {
+  static void init({required String baseUrl, int timeoutSeconds = 1}) {
     dio = Dio(
       BaseOptions(
         baseUrl: baseUrl,

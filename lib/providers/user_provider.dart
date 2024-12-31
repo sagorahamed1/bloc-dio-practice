@@ -6,12 +6,10 @@ class UserProvider {
 
   UserProvider({required this.dio});
 
-  Future<List<UserModel>> getUser() async {
+  Future<Response> getUser(String uri) async {
     try {
-      final response = await dio.get("/users");
-      return (response.data as List)
-          .map((user) => UserModel.fromJson(user))
-          .toList();
+      final response = await dio.get(uri.toString());
+      return response;
     } catch (error, stackTrace) {
       print("Error: $error\nStacktrace: $stackTrace");
       return Future.error(error);

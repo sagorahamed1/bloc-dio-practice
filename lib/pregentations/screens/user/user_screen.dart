@@ -5,23 +5,11 @@ import '../../../bloc/user/user_bloc.dart';
 import '../../../bloc/user/user_event.dart';
 import '../../../bloc/user/user_state.dart';
 
-class UserScreen extends StatefulWidget {
-  const UserScreen({Key? key}) : super(key: key);
+class UserScreen extends StatelessWidget {
+  const UserScreen({super.key});
 
-  @override
-  State<UserScreen> createState() => _UserScreenState();
-}
-
-class _UserScreenState extends State<UserScreen> {
-  @override
-  void initState() {
-    context.read<UserBloc>().add(FetchUserEvent());
-    super.initState();
-  }
   @override
   Widget build(BuildContext context) {
-    print("==================user screen");
-    // BlocProvider.of<UserBloc>(context).add(FetchUserEvent());
     context.read<UserBloc>().add(FetchUserEvent());
     return Scaffold(
       appBar: AppBar(

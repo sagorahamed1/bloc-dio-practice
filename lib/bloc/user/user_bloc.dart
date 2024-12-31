@@ -9,16 +9,19 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   final UserProvider userProvider;
 
   UserBloc({required this.userProvider}) : super(UserInitialState()) {
-    on<FetchUserEvent>(_onFetchUserEvent);
+    on<FetchUserEvent>(onFetchUserEvent);
   }
 
   // Event handler for fetching users
-  Future<void> _onFetchUserEvent(
+  Future<void> onFetchUserEvent(
       FetchUserEvent event, Emitter<UserState> emit) async {
     emit(UserLoadingState());
     try {
-      final result = await userProvider.getUser();
-      emit(UserLoadedState(result ?? []));
+      final response = await userProvider.getUser("/users");
+      if(response.statusCode == 200){
+        var data = (response.data as List).map((x)=> UserModel.fromJson(x)).toList();
+        emit(UserLoadedState(data));
+      }
     } catch (error, stackTrace) {
       emit(UserErrorState(error.toString()));
       print("Error: $error\nStacktrace: $stackTrace");
