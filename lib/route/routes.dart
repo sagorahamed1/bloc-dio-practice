@@ -1,33 +1,48 @@
+import 'package:bloc_api_request/bloc/user/user_bloc.dart';
+import 'package:bloc_api_request/helpers/dio_helper.dart';
+import 'package:bloc_api_request/pregentations/screens/user/user_screen.dart';
+import 'package:bloc_api_request/providers/user_provider.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-
-import '../bloc/auth/auth_bloc.dart';
-import '../bloc/auth/auth_state.dart';
 import '../pregentations/screens/home/home_screen.dart';
 import '../pregentations/screens/log_in/log_in_screen.dart';
 import '../pregentations/screens/signup/sign_up_screen.dart';
 
 class Routes{
-  // Define GoRouter
- static final authBloc = context.watch<AuthBloc>();
+
+
+  static const login = "/login";
+  static const signup = "/signup";
+  static const homeScreen = "/homeScreen";
+  static const userScreen = "/UserScreen";
+
  static final GoRouter router = GoRouter(
-    initialLocation: '/login',
+    initialLocation: login,
     routes: [
       GoRoute(
-        path: '/login',
+        path: login,
+        name: login,
         builder: (context, state) => LoginScreen(),
       ),
       GoRoute(
-        path: '/signup',
+        path: signup,
+        name: signup,
         builder: (context, state) => SignupScreen(),
       ),
       GoRoute(
-        path: '/home',
+        path: homeScreen,
+        name: homeScreen,
         builder: (context, state) => HomeScreen(),
-        redirect: (context, state) =>
-        authBloc.state is Authenticated ? null : '/login',
+      ),
+
+      GoRoute(
+        path: userScreen,
+        name: userScreen,
+        builder: (context, state) => BlocProvider(
+            create: (context) => UserBloc(userProvider: UserProvider(dio: DioHelper.dio)),
+            child: const UserScreen()),
       ),
     ],
   );
-
-  static get context => null;
 }

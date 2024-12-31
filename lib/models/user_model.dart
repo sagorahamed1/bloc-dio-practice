@@ -1,3 +1,6 @@
+// To parse this JSON data, do
+//
+//     final userModel = userModelFromJson(jsonString);
 
 import 'dart:convert';
 
@@ -7,86 +10,120 @@ String userModelToJson(List<UserModel> data) => json.encode(List<dynamic>.from(d
 
 class UserModel {
   final int? id;
-  final String? title;
-  final double? price;
-  final String? description;
-  final Category? category;
-  final String? image;
-  final Rating? rating;
+  final String? name;
+  final String? username;
+  final String? email;
+  final Address? address;
+  final String? phone;
+  final String? website;
+  final Company? company;
 
   UserModel({
     this.id,
-    this.title,
-    this.price,
-    this.description,
-    this.category,
-    this.image,
-    this.rating,
+    this.name,
+    this.username,
+    this.email,
+    this.address,
+    this.phone,
+    this.website,
+    this.company,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
     id: json["id"],
-    title: json["title"],
-    price: json["price"]?.toDouble(),
-    description: json["description"],
-    category: categoryValues.map[json["category"]]!,
-    image: json["image"],
-    rating: json["rating"] == null ? null : Rating.fromJson(json["rating"]),
+    name: json["name"],
+    username: json["username"],
+    email: json["email"],
+    address: json["address"] == null ? null : Address.fromJson(json["address"]),
+    phone: json["phone"],
+    website: json["website"],
+    company: json["company"] == null ? null : Company.fromJson(json["company"]),
   );
 
   Map<String, dynamic> toJson() => {
     "id": id,
-    "title": title,
-    "price": price,
-    "description": description,
-    "category": categoryValues.reverse[category],
-    "image": image,
-    "rating": rating?.toJson(),
+    "name": name,
+    "username": username,
+    "email": email,
+    "address": address?.toJson(),
+    "phone": phone,
+    "website": website,
+    "company": company?.toJson(),
   };
 }
 
-enum Category {
-  ELECTRONICS,
-  JEWELERY,
-  MEN_S_CLOTHING,
-  WOMEN_S_CLOTHING
-}
+class Address {
+  final String? street;
+  final String? suite;
+  final String? city;
+  final String? zipcode;
+  final Geo? geo;
 
-final categoryValues = EnumValues({
-  "electronics": Category.ELECTRONICS,
-  "jewelery": Category.JEWELERY,
-  "men's clothing": Category.MEN_S_CLOTHING,
-  "women's clothing": Category.WOMEN_S_CLOTHING
-});
-
-class Rating {
-  final double? rate;
-  final int? count;
-
-  Rating({
-    this.rate,
-    this.count,
+  Address({
+    this.street,
+    this.suite,
+    this.city,
+    this.zipcode,
+    this.geo,
   });
 
-  factory Rating.fromJson(Map<String, dynamic> json) => Rating(
-    rate: json["rate"]?.toDouble(),
-    count: json["count"],
+  factory Address.fromJson(Map<String, dynamic> json) => Address(
+    street: json["street"],
+    suite: json["suite"],
+    city: json["city"],
+    zipcode: json["zipcode"],
+    geo: json["geo"] == null ? null : Geo.fromJson(json["geo"]),
   );
 
   Map<String, dynamic> toJson() => {
-    "rate": rate,
-    "count": count,
+    "street": street,
+    "suite": suite,
+    "city": city,
+    "zipcode": zipcode,
+    "geo": geo?.toJson(),
   };
 }
 
-class EnumValues<T> {
-  Map<String, T> map;
-  late Map<T, String> reverseMap;
+class Geo {
+  final String? lat;
+  final String? lng;
 
-  EnumValues(this.map);
+  Geo({
+    this.lat,
+    this.lng,
+  });
 
-  Map<T, String> get reverse {
-    reverseMap = map.map((k, v) => MapEntry(v, k));
-    return reverseMap;
-  }
+  factory Geo.fromJson(Map<String, dynamic> json) => Geo(
+    lat: json["lat"],
+    lng: json["lng"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "lat": lat,
+    "lng": lng,
+  };
+}
+
+class Company {
+  final String? name;
+  final String? catchPhrase;
+  final String? bs;
+
+  Company({
+    this.name,
+    this.catchPhrase,
+    this.bs,
+  });
+
+  factory Company.fromJson(Map<String, dynamic> json) => Company(
+    name: json["name"],
+    catchPhrase: json["catchPhrase"],
+    bs: json["bs"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "name": name,
+    "catchPhrase": catchPhrase,
+    "bs": bs,
+  };
 }

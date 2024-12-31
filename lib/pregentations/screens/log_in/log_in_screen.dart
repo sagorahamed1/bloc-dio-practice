@@ -1,4 +1,5 @@
 // Login Screen
+import 'package:bloc_api_request/route/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -14,8 +15,9 @@ class LoginScreen extends StatelessWidget {
       body: Center(
         child: ElevatedButton(
           onPressed: () {
-            context.read<AuthBloc>().add(LoginEvent());
-            context.go('/home');
+            context.replaceNamed(Routes.homeScreen);
+            // context.read<AuthBloc>().add(LoginEvent());
+
           },
           child: Text('Login'),
         ),

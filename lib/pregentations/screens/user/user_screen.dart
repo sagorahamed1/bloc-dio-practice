@@ -5,12 +5,24 @@ import '../../../bloc/user/user_bloc.dart';
 import '../../../bloc/user/user_event.dart';
 import '../../../bloc/user/user_state.dart';
 
-class UserScreen extends StatelessWidget {
+class UserScreen extends StatefulWidget {
   const UserScreen({Key? key}) : super(key: key);
 
   @override
+  State<UserScreen> createState() => _UserScreenState();
+}
+
+class _UserScreenState extends State<UserScreen> {
+  @override
+  void initState() {
+    context.read<UserBloc>().add(FetchUserEvent());
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
-    BlocProvider.of<UserBloc>(context).add(FetchUserEvent());
+    print("==================user screen");
+    // BlocProvider.of<UserBloc>(context).add(FetchUserEvent());
+    context.read<UserBloc>().add(FetchUserEvent());
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -35,10 +47,11 @@ class UserScreen extends StatelessWidget {
                       height: 100,
                       width: 100,
                       decoration: BoxDecoration(
+                        shape: BoxShape.circle,
                           border: Border.all(color: Colors.green)),
-                      child: Image.network(user.image.toString())),
-                  title: Text(user.title ?? 'No Name'),
-                  subtitle: Text("${user.price.toString()} Take"),
+                      child: Center(child: Text("${user.name?[0]}"))),
+                  title: Text(user.name ?? 'No Name'),
+                  subtitle: Text("${user.website.toString()} Take"),
                 );
               },
             );

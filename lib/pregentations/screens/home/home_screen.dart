@@ -1,4 +1,5 @@
 // Home Screen
+import 'package:bloc_api_request/route/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -22,7 +23,16 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: Center(child: Text('Welcome Home!')),
+      body: Column(
+        children: [
+          ListTile(
+            onTap: (){
+              context.pushNamed(Routes.userScreen);
+            },
+            title: const Text("User Screen"),
+          )
+        ],
+      ),
     );
   }
 }

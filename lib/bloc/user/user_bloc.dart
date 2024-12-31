@@ -18,7 +18,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     emit(UserLoadingState());
     try {
       final result = await userProvider.getUser();
-      emit(UserLoadedState(result));
+      emit(UserLoadedState(result ?? []));
     } catch (error, stackTrace) {
       emit(UserErrorState(error.toString()));
       print("Error: $error\nStacktrace: $stackTrace");

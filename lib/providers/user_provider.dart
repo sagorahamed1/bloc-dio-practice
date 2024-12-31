@@ -8,7 +8,7 @@ class UserProvider {
 
   Future<List<UserModel>> getUser() async {
     try {
-      final response = await dio.get("/products");
+      final response = await dio.get("/users");
       return (response.data as List)
           .map((user) => UserModel.fromJson(user))
           .toList();
