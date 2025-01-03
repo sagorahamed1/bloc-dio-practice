@@ -1,25 +1,80 @@
-// Login Screen
-import 'package:bloc_api_request/route/routes.dart';
+
+import 'package:bloc_api_request/utils/app_strings.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../bloc/auth/auth_bloc.dart';
-import '../../../bloc/auth/auth_event.dart';
+import '../../../route/routes.dart';
 
-class LoginScreen extends StatelessWidget {
+class LogInScreen extends StatelessWidget {
+  const LogInScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Login')),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            context.replaceNamed(Routes.homeScreen);
-            // context.read<AuthBloc>().add(LoginEvent());
+      body: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+        child: Column(
+          children: [
+            const SizedBox(height: 100),
 
-          },
-          child: Text('Login'),
+            const Text(AppStrings.welcome, style: TextStyle(fontSize: 28)),
+
+           const  SizedBox(height: 20),
+            const Text(AppStrings.pleaseGive, style: TextStyle(fontSize: 18),textAlign: TextAlign.center,),
+
+
+          const  SizedBox(height: 50),
+
+            /// ================image for login ==========...
+            SvgPicture.asset("assets/icons/login.svg", height: 250, width: 300, fit: BoxFit.cover),
+
+
+
+            const SizedBox(height: 50),
+
+
+            ///==============log in button============>>>
+            GestureDetector(
+              onTap: (){
+                context.push(Routes.homeScreen);
+              },
+              child: Container(
+                height: 56,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.all(Radius.circular(16)),
+                  color: Colors.white38,
+                  border: Border.all(color: Colors.purpleAccent, width: 1.5)
+                ),
+                child: const Center(child: Text(AppStrings.logIn)),
+              ),
+            ),
+
+
+
+
+
+            const SizedBox(height: 20),
+
+
+            ///==============sign up button============>>>
+            GestureDetector(
+              onTap: (){
+                context.push(Routes.signup);
+              },
+              child: Container(
+                height: 56,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(16)),
+                    color: Colors.purpleAccent,
+                    border: Border.all(color: Colors.purpleAccent, width: 1.5)
+                ),
+                child: const Center(child: Text(AppStrings.singUp)),
+              ),
+            ),
+          ],
         ),
       ),
     );

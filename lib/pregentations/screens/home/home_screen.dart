@@ -37,7 +37,15 @@ class HomeScreen extends StatelessWidget {
             onTap: (){
               context.push(Routes.productsScreen);
             },
-            title: const Text("User Screen"),
+            title: const Text("Product Screen one"),
+          ),
+
+
+          ListTile(
+            onTap: (){
+              context.pushNamed(Routes.photoScreen);
+            },
+            title: const Text("Photo Screen"),
           )
         ],
       ),

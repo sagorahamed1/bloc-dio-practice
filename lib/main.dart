@@ -1,3 +1,4 @@
+import 'package:bloc_api_request/bloc/photo/photo_bloc.dart';
 import 'package:bloc_api_request/bloc/products/products_bloc.dart';
 import 'package:bloc_api_request/bloc/user/user_bloc.dart';
 import 'package:bloc_api_request/providers/user_provider.dart';
@@ -13,7 +14,8 @@ void main() {
   runApp( MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => UserBloc(getProvider: GetProvider(dio: DioHelper.dio))),
-        BlocProvider(create: (context) => ProductsBloc(getProvider: GetProvider(dio: DioHelper.dio)))
+        BlocProvider(create: (context) => ProductsBloc(getProvider: GetProvider(dio: DioHelper.dio))),
+        BlocProvider(create: (context) => PhotoBloc(getProvider: GetProvider(dio: DioHelper.dio))),
       ],
       child: MyApp()));
 }
